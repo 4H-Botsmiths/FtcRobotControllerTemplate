@@ -1,0 +1,42 @@
+package org.firstinspires.ftc.teamcode.hardware;
+
+import org.firstinspires.ftc.teamcode.constants.DeviceNames;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+/**
+ * Represents the robot's hardware and subsystems, including the drivetrain.
+ * Provides methods to initialize and control the robot's motors and drivetrain.
+ */
+public class Robot {
+  /* ------------------ Devices ------------------ */
+  private final DcMotorEx frontLeft;
+  private final DcMotorEx frontRight;
+  private final DcMotorEx rearLeft;
+  private final DcMotorEx rearRight;
+
+  /* ------------------ Subsystems ------------------ */
+  public final Drivetrain drivetrain;
+
+  /** Initialize the robot's hardware components */
+  public Robot(HardwareMap hardwareMap) {
+    // Calculate drive motor PPR (Pulses Per Rotation) based on gear ratio
+    // Formula: ((1 + (stage1_ratio)) * (1 + (stage2_ratio))) * base_motor_PPR
+    // Gear ratios: 46:17 (stage 1) and 46:11 (stage
+    // Base motor: 28 PPR (likely a bare motor encoder co
+    double drivePPR = ((((1 + (46.0 / 17.0))) * (1 + (46.0 / 11.0))) * 28.0);
+
+    //! Changes the `DeviceNames` below to match the actual motor assignments on the Control Hub.
+    this.rearLeft = hardwareMap.get(DcMotorEx.class, DeviceNames.CH_MOTOR_0.getDeviceName());
+    this.rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+    this.rearRight = hardwareMap.get(DcMotorEx.class, DeviceNames.CH_MOTOR_1.getDeviceName());
+    this.frontLeft = hardwareMap.get(DcMotorEx.class, DeviceNames.CH_MOTOR_2.getDeviceName());
+    this.frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+    this.frontRight = hardwareMap.get(DcMotorEx.class, DeviceNames.CH_MOTOR_3.getDeviceName());
+
+    this.drivetrain = new Drivetrain(this.frontLeft, this.frontRight, this.rearLeft, this.rearRight, drivePPR);
+  }
+}
