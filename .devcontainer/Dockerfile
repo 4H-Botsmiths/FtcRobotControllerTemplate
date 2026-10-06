@@ -67,5 +67,5 @@ RUN mkdir -p /etc/apt/keyrings \
 	&& mv /tmp/android-cmdline-tools/cmdline-tools "${ANDROID_SDK_ROOT}/cmdline-tools/latest" \
 	&& rm -rf /tmp/commandlinetools.zip /tmp/android-cmdline-tools \
 	&& yes | sdkmanager --sdk_root="${ANDROID_SDK_ROOT}" --licenses \
-	&& sdkmanager --sdk_root="${ANDROID_SDK_ROOT}" "platform-tools" "platforms;android-30" "build-tools;34.0.0"
+	&& sdkmanager --sdk_root="${ANDROID_SDK_ROOT}" "platform-tools" "platforms;android-30" "build-tools;35.0.0"
 	
