@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
 import org.firstinspires.ftc.teamcode.constants.DeviceNames;
-import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.Drivetrain;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;

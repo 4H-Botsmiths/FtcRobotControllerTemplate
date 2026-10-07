@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.teamcode.hardware.subsystems;
 
 import org.firstinspires.ftc.teamcode.hardware.devices.Motor;
 
