@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode.programs.teleop;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "Mecanum Drive", group = "Template")
+@Disabled() //! Remove this line when you copy this template
 public class TEMPLATE_MecanumDrive extends OpMode {
   public Robot robot;
 
