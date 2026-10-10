@@ -14,10 +14,10 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class Drivetrain {
 
-  private Motor frontLeft;
-  private Motor frontRight;
-  private Motor rearLeft;
-  private Motor rearRight;
+  public Motor frontLeft;
+  public Motor frontRight;
+  public Motor rearLeft;
+  public Motor rearRight;
 
   /**
    * Creates a drivetrain using the supplied motor wrappers.
