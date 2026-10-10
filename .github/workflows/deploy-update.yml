@@ -1,0 +1,48 @@
+name: Deploy Update
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  find-run:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    outputs:
+      runid: ${{ steps.find.outputs.runid }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: README.md
+
+      - name: Find last successful build run
+        id: find
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="${{ github.event.pull_request.head.ref }}"
+          run_id=$(gh run list \
+            --workflow="build" \
+            --branch="$branch" \
+            --json databaseId,status,conclusion \
+            --limit 50 | jq -r '[.[] | select(.status=="completed" and .conclusion=="success")][0].databaseId')
+
+          if [ -z "$run_id" ] || [ "$run_id" = "null" ]; then
+            echo "No successful 'build' workflow run found for branch $branch (PR #${{ github.event.pull_request.number }})." >&2
+            exit 1
+          fi
+
+          echo "Using build run id: $run_id"
+          echo "runid=$run_id" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: find-run
+    if: needs.find-run.result == 'success'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      runid: ${{ needs.find-run.outputs.runid }}
